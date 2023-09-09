@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Profielpagina</title>
+    <link href="css/index.css/front1.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css/front2.css">
+    <link rel="stylesheet" href="style.css" media="screen">
+    <link rel="stylesheet" href="css/index.css/frond3.css" media="screen">
+</head>
+<body>
+    <header>
+        <a href="#"><h1 class="site-title"><i class="far fa-hand-lizard"></i> Mijn Profiel</h1></a>
+        <nav class="navbar">
+            <ul class="navlist">
+                <li class="navitem navlink"><a href="index.html">Home</a></li>
+                <li class="navitem navlink"><a href="#">Trending</a></li>
+                <li class="navitem navlink active"><a href="profile.html">Profiel</a></li>
+                <li class="navitem navbar-search">
+                    <input type="text" id="navbar-search-input" placeholder="Zoeken...">
+                    <button type="button" id="navbar-search-button"><i class="fas fa-search"></i></button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="profile-container">
+        <!-- Hier kun je informatie over de gebruiker weergeven, zoals profielfoto, naam, bio, enzovoort. -->
+        <div class="profile-info">
+            <img src="link_naar_profielfoto.jpg" alt="Profielfoto">
+            <h2>Gebruikersnaam</h2>
+            <p>Biografie van de gebruiker</p>
+        </div>
+
+        <!-- Hier kun je de tweets of berichten van de gebruiker weergeven. -->
+        <div class="profile-tweets">
+            <h3>Mijn Tweets</h3>
+            <article class="twit">
+                <!-- Voeg hier de inhoud van de eerste tweet toe -->
+                <div class="twit-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="twit-content">
+                    <p class="twit-text">Dit is mijn eerste tweet!</p>
+                    <p class="twit-author">
+                        <a href="#">Gebruikersnaam</a>
+                    </p>
+                </div>
+            </article>
+            
+            <!-- Voeg meer tweets toe zoals hierboven -->
+        </div>
+    </main>
+<div>
+    <button type="button" id="create-twit-button"></button>
+    <div id="modal-backdrop" class="hidden"></div>
+    <div id="create-twit-modal" class="hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Maak een nieuwe tweet</h3>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div>
+                        <label for="twit-text-input" class="sr-only">Tweet</label>
+                        <input type="text" id="twit-text-input" placeholder="Tweet">
+                    </div>
+                    <div>
+                        <label for="twit-attribution-input" class="sr-only">Gebruikersnaam</label>
+                        <input type="text" id="twit-attribution-input" placeholder="Gebruikersnaam">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-accept-button">Tweeten</button>
+                <button type="button" class="modal-close-button">Annuleren</button>
+            </div>
+        </div>
+</div>
+    <!-- JavaScript voor het verzenden van tweets naar de homepagina -->
+    <script>
+        // Zoek de knop en het tekstveld op de profielpagina
+        const createTwitButton = document.getElementById("create-twit-button");
+        const twitTextInput = document.getElementById("twit-text-input");
+        const twitAttributionInput = document.getElementById("twit-attribution-input");
+
+        // Zoek het tweet-artikel op de profielpagina
+        const profileTweet = document.querySelector(".profile-tweets .twit");
+
+        // Voeg een eventlistener toe aan de knop
+        createTwitButton.addEventListener("click", function () {
+            const tweetText = twitTextInput.value;
+            const tweetAuthor = twitAttributionInput.value;
+
+            if (tweetText && tweetAuthor) {
+                // Maak een nieuw tweet-artikel voor de homepagina
+                const newTwit = document.createElement("article");
+                newTwit.classList.add("twit");
+                const twitIcon = document.createElement("div");
+                twitIcon.classList.add("twit-icon");
+                twitIcon.innerHTML = '<i class="fas fa-bullhorn"></i>';
+                const twitContent = document.createElement("div");
+                twitContent.classList.add("twit-content");
+                const twitText = document.createElement("p");
+                twitText.classList.add("twit-text");
+                twitText.textContent = tweetText;
+                const twitAuthor = document.createElement("p");
+                twitAuthor.classList.add("twit-author");
+                twitAuthor.innerHTML = `<a href="#">${tweetAuthor}</a>`;
+
+                twitContent.appendChild(twitText);
+                twitContent.appendChild(twitAuthor);
+                newTwit.appendChild(twitIcon);
+                newTwit.appendChild(twitContent);
+
+                // Voeg het nieuwe tweet-artikel toe aan de homepagina
+                const twitContainer = document.querySelector(".twit-container");
+                twitContainer.insertBefore(newTwit, twitContainer.firstChild);
+
+                // Wis de invoervelden
+                twitTextInput.value = "";
+                twitAttributionInput.value = "";
+
+                // Verberg het modal
+                document.getElementById("modal-backdrop").classList.add("hidden");
+                document.getElementById("create-twit-modal").classList.add("hidden");
+            }
+        });
+    </script>
+</body>
+</html>
